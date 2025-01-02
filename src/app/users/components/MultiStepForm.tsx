@@ -14,6 +14,7 @@ import JobDetails from "./steps/JobDetails";
 import Review from "./steps/Review";
 
 type FormDataType = {
+  id: string;
   name: string;
   email: string;
   phone: string;
@@ -27,6 +28,7 @@ const steps = ["Basic Details", "Job Details", "Review & Submit"];
 const MultiStepForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState<FormDataType>({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -35,14 +37,26 @@ const MultiStepForm = () => {
     salary: "",
   });
 
+  const generateUniqueId = (existingIds: string[]): string => {
+    let newId: string;
+    do {
+      newId = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    } while (existingIds.includes(newId));
+    return newId;
+  };
+
   const saveUserToLocalStorage = () => {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    users.push(formData);
+    const existingIds = users.map((user: FormDataType) => user.id);
 
+    const uniqueId = generateUniqueId(existingIds);
+    const userWithId = { ...formData, id: uniqueId };
+    users.unshift(userWithId);
     localStorage.setItem("users", JSON.stringify(users));
 
     setFormData({
+      id: "",
       name: "",
       email: "",
       phone: "",

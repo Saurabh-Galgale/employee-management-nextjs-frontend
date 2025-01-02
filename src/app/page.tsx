@@ -21,6 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { mockUsers } from "./mockUsers";
 
 type UserType = {
+  id: string;
   name: string;
   email: string;
   phone: string;
@@ -49,8 +50,8 @@ export default function Page() {
     }
   };
 
-  const handleUpdate = (index: number) => {
-    alert(`Update user at index: ${index}`);
+  const handleUpdate = (userId: string) => {
+    alert(`Update user ${userId}`);
   };
 
   const addMockUsers = () => {
@@ -78,31 +79,44 @@ export default function Page() {
 
   return (
     <Box sx={{ marginTop: 4, textAlign: "center" }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h4" gutterBottom>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          textAlign: "center",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "90%",
+          margin: "0 auto",
+        }}
+      >
+        <Typography variant="h5">
           Welcome to the Employee Management System
         </Typography>
-        <Box>
+        <Box
+          sx={{
+            margin: {
+              xs: "4px auto",
+              sm: "0",
+            },
+          }}
+        >
           <Link href={"/users"} passHref>
-            <Button size="small" sx={{ marginRight: "4px" }}>
+            <Button size="medium" sx={{ marginRight: 2 }}>
               Add User
             </Button>
           </Link>
-          <Button
-            size="small"
-            onClick={addMockUsers}
-            sx={{ marginRight: "4px" }}
-          >
+          <Button size="medium" onClick={addMockUsers}>
             Add Dummy users
           </Button>
         </Box>
       </Box>
-      <Divider variant="middle" sx={{ marginY: 4 }} />
+      <Divider variant="middle" sx={{ marginY: 2 }} />
       <TableContainer
         component={Paper}
         sx={{
           marginTop: "20px",
-          width: "85%",
+          width: "90%",
           maxWidth: "90%",
           maxHeight: "75vh",
           margin: "0 auto",
@@ -149,10 +163,10 @@ export default function Page() {
                   <TableCell>
                     <Button
                       size="small"
-                      onClick={() => handleUpdate(index)}
+                      onClick={() => handleUpdate(user.id)}
                       sx={{ marginRight: "8px" }}
                     >
-                      Update
+                      Edit
                     </Button>
                     <IconButton onClick={() => handleDelete(index)}>
                       <DeleteIcon />
