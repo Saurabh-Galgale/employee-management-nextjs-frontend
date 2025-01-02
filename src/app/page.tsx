@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Box,
   Table,
@@ -14,8 +15,10 @@ import {
   Button,
   IconButton,
   Divider,
+  TablePagination,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { mockUsers } from "./mockUsers";
 
 type UserType = {
   name: string;
@@ -28,6 +31,8 @@ type UserType = {
 
 export default function Page() {
   const [users, setUsers] = useState<UserType[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(8);
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -48,11 +53,50 @@ export default function Page() {
     alert(`Update user at index: ${index}`);
   };
 
+  const addMockUsers = () => {
+    let storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    let newUsersList = [...storedUsers, ...mockUsers];
+    localStorage.setItem("users", JSON.stringify(newUsersList));
+    setUsers(newUsersList);
+  };
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to the first page when the rows per page change
+  };
+
+  const currentUsers = users.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   return (
     <Box sx={{ marginTop: 4, textAlign: "center" }}>
-      <Typography variant="h4" gutterBottom>
-        Welcome to the Employee Management System
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h4" gutterBottom>
+          Welcome to the Employee Management System
+        </Typography>
+        <Box>
+          <Link href={"/users"} passHref>
+            <Button size="small" sx={{ marginRight: "4px" }}>
+              Add User
+            </Button>
+          </Link>
+          <Button
+            size="small"
+            onClick={addMockUsers}
+            sx={{ marginRight: "4px" }}
+          >
+            Add Dummy users
+          </Button>
+        </Box>
+      </Box>
       <Divider variant="middle" sx={{ marginY: 4 }} />
       <TableContainer
         component={Paper}
@@ -60,12 +104,14 @@ export default function Page() {
           marginTop: "20px",
           width: "85%",
           maxWidth: "90%",
+          maxHeight: "75vh",
           margin: "0 auto",
+          borderRadius: "12px",
           backgroundColor: "secondary.main",
         }}
       >
         <Table>
-          <TableHead>
+          <TableHead sx={{ backgroundColor: "#D0DCE1" }}>
             <TableRow>
               <TableCell>
                 <strong>Name</strong>
@@ -91,8 +137,8 @@ export default function Page() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.length > 0 ? (
-              users.map((user, index) => (
+            {currentUsers.length > 0 ? (
+              currentUsers.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
@@ -123,6 +169,20 @@ export default function Page() {
             )}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[8, 15, 30]}
+          component="div"
+          count={users.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            position: "sticky",
+            bottom: 0,
+            backgroundColor: "#D0DCE1",
+          }}
+        />
       </TableContainer>
     </Box>
   );
