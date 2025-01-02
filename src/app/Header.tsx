@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["Home", "Users", "About"];
+const pages = ["Users", "About"];
 const settings = ["Profile"];
 
 function Header() {
@@ -43,17 +43,19 @@ function Header() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#9AA6B2" }}>
+    <AppBar position="static" sx={{ backgroundColor: "secondary.main" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-            <Image
-              src="/logo.svg"
-              alt="Logo"
-              width={40}
-              height={40}
-              style={{ marginRight: 8 }}
-            />
+            <Link href="/">
+              <Image
+                src="/logo.svg"
+                alt="Logo"
+                width={40}
+                height={40}
+                style={{ marginRight: 8 }}
+              />
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -100,7 +102,9 @@ function Header() {
               mr: 3,
             }}
           >
-            <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+            <Link href="/">
+              <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+            </Link>
           </Box>
           <Typography
             variant="h5"
@@ -183,28 +187,3 @@ function Header() {
   );
 }
 export default Header;
-
-// import React from 'react';
-// import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
-
-// const Header = () => {
-//   return (
-//     <AppBar position="sticky">
-//       <Toolbar>
-//         <Container maxWidth="lg">
-//           {/* Logo or Title */}
-//           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-//             Employee Management
-//           </Typography>
-
-//           {/* Navigation buttons */}
-//           <Button color="inherit">Home</Button>
-//           <Button color="inherit">Employees</Button>
-//           <Button color="inherit">Settings</Button>
-//         </Container>
-//       </Toolbar>
-//     </AppBar>
-//   );
-// };
-
-// export default Header;
