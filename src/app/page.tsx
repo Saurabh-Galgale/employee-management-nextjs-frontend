@@ -54,9 +54,17 @@ export default function Page() {
 
   const addMockUsers = () => {
     let storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    let newUsersList = [...storedUsers, ...mockUsers];
-    localStorage.setItem("users", JSON.stringify(newUsersList));
-    setUsers(newUsersList);
+    let mapStoredUsers = new Map();
+    storedUsers &&
+      storedUsers.forEach((user: UserType) => {
+        mapStoredUsers.set(user.id, user.name);
+      });
+    let newUsersList = mockUsers.filter((user) => {
+      if (!mapStoredUsers.get(user.id)) return user;
+    });
+    let updatedUsersList = [...newUsersList, ...storedUsers];
+    localStorage.setItem("users", JSON.stringify(updatedUsersList));
+    setUsers(updatedUsersList);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {

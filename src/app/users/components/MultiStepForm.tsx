@@ -27,6 +27,7 @@ const steps = ["Basic Details", "Job Details", "Review & Submit"];
 
 const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [stepValid, setStepValid] = useState(false);
   const [formData, setFormData] = useState<FormDataType>(
     prefillData || {
       id: "",
@@ -113,6 +114,7 @@ const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
           <BasicDetails
             formData={formData}
             handleFormDataChange={handleFormDataChange}
+            setStepValid={setStepValid}
           />
         );
       case 1:
@@ -120,6 +122,7 @@ const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
           <JobDetails
             formData={formData}
             handleFormDataChange={handleFormDataChange}
+            setStepValid={setStepValid}
           />
         );
       case 2:
@@ -152,15 +155,16 @@ const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
             color="primary"
             onClick={handleNext}
             disabled={
-              activeStep === steps.length - 1 &&
-              ![
-                "name",
-                "email",
-                "phone",
-                "department",
-                "designation",
-                "salary",
-              ].every((key) => formData[key as keyof FormDataType])
+              (activeStep === steps.length - 1 &&
+                ![
+                  "name",
+                  "email",
+                  "phone",
+                  "department",
+                  "designation",
+                  "salary",
+                ].every((key) => formData[key as keyof FormDataType])) ||
+              !stepValid
             }
           >
             {activeStep === steps.length - 1 ? "Submit" : "Next"}
