@@ -16,6 +16,7 @@ import {
   IconButton,
   Divider,
   TablePagination,
+  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { mockUsers } from "./mockUsers";
@@ -34,6 +35,7 @@ export default function Page() {
   const [users, setUsers] = useState<UserType[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(8);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -48,10 +50,6 @@ export default function Page() {
       setUsers(updatedUsers);
       localStorage.setItem("users", JSON.stringify(updatedUsers));
     }
-  };
-
-  const handleUpdate = (userId: string) => {
-    alert(`Update user ${userId}`);
   };
 
   const addMockUsers = () => {
@@ -72,7 +70,11 @@ export default function Page() {
     setPage(0); // Reset to the first page when the rows per page change
   };
 
-  const currentUsers = users.slice(
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const currentUsers = filteredUsers.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
@@ -95,12 +97,22 @@ export default function Page() {
         </Typography>
         <Box
           sx={{
+            display: "flex",
+            alignItems: "center",
             margin: {
               xs: "4px auto",
               sm: "0",
             },
           }}
         >
+          <TextField
+            label="Search user by name"
+            variant="filled"
+            color="secondary"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{ marginRight: 2 }}
+          />
           <Link href={"/users"} passHref>
             <Button size="medium" sx={{ marginRight: 2 }}>
               Add User
@@ -161,13 +173,11 @@ export default function Page() {
                   <TableCell>{user.designation}</TableCell>
                   <TableCell>{user.salary}</TableCell>
                   <TableCell>
-                    <Button
-                      size="small"
-                      onClick={() => handleUpdate(user.id)}
-                      sx={{ marginRight: "8px" }}
-                    >
-                      Edit
-                    </Button>
+                    <Link href={`/users/${user.id}`}>
+                      <Button size="small" sx={{ marginRight: "8px" }}>
+                        Edit
+                      </Button>
+                    </Link>
                     <IconButton onClick={() => handleDelete(index)}>
                       <DeleteIcon />
                     </IconButton>

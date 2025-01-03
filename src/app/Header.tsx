@@ -16,7 +16,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["Users", "About"];
+const pages = [
+  { route: "Users", translation: "Add New User" },
+  { route: "About", translation: "About" },
+];
 const settings = ["Profile"];
 
 function Header() {
@@ -85,9 +88,11 @@ function Header() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link href={`/${page.toLowerCase()}`} passHref>
-                    <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem key={page.route} onClick={handleCloseNavMenu}>
+                  <Link href={`/${page.route.toLowerCase()}`} passHref>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {page.translation}
+                    </Typography>
                   </Link>
                 </MenuItem>
               ))}
@@ -132,7 +137,11 @@ function Header() {
             }}
           >
             {pages.map((page) => (
-              <Link key={page} href={`/${page.toLowerCase()}`} passHref>
+              <Link
+                key={page.route}
+                href={`/${page.route.toLowerCase()}`}
+                passHref
+              >
                 <Typography
                   sx={{
                     textAlign: "center",
@@ -141,7 +150,7 @@ function Header() {
                     mr: 3,
                   }}
                 >
-                  {page}
+                  {page.translation}
                 </Typography>
               </Link>
             ))}

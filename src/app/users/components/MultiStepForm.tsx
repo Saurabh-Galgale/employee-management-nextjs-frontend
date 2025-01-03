@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -25,17 +25,19 @@ type FormDataType = {
 
 const steps = ["Basic Details", "Job Details", "Review & Submit"];
 
-const MultiStepForm = () => {
+const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [formData, setFormData] = useState<FormDataType>({
-    id: "",
-    name: "",
-    email: "",
-    phone: "",
-    department: "",
-    designation: "",
-    salary: "",
-  });
+  const [formData, setFormData] = useState<FormDataType>(
+    prefillData || {
+      id: "",
+      name: "",
+      email: "",
+      phone: "",
+      department: "",
+      designation: "",
+      salary: "",
+    }
+  );
 
   const generateUniqueId = (existingIds: string[]): string => {
     let newId: string;
@@ -47,14 +49,29 @@ const MultiStepForm = () => {
 
   const saveUserToLocalStorage = () => {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
+    let existingUserIndex = -1;
 
-    const existingIds = users.map((user: FormDataType) => user.id);
+    if (formData.id) {
+      existingUserIndex = users.findIndex(
+        (user: FormDataType) => user.id === formData.id
+      );
+    }
 
-    const uniqueId = generateUniqueId(existingIds);
-    const userWithId = { ...formData, id: uniqueId };
-    users.unshift(userWithId);
+    if (existingUserIndex !== -1) {
+      users[existingUserIndex] = { ...formData };
+      alert("User updated successfully!");
+    } else {
+      const existingIds = users.map((user: FormDataType) => user.id);
+      const uniqueId = generateUniqueId(existingIds);
+      const userWithId = { ...formData, id: uniqueId };
+      users.unshift(userWithId);
+      alert("User saved successfully!");
+    }
+
+    // Save the updated user data back to localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
+    // Reset the form data and set the active step to 0
     setFormData({
       id: "",
       name: "",
@@ -65,8 +82,6 @@ const MultiStepForm = () => {
       salary: "",
     });
     setActiveStep(0);
-
-    alert("User saved successfully!");
   };
 
   const handleNext = () => {
@@ -84,6 +99,12 @@ const MultiStepForm = () => {
   const handleFormDataChange = (key: string, value: string) => {
     setFormData((prevData) => ({ ...prevData, [key]: value }));
   };
+
+  useEffect(() => {
+    if (prefillData) {
+      setFormData(prefillData);
+    }
+  }, [prefillData]);
 
   const renderStepContent = () => {
     switch (activeStep) {
