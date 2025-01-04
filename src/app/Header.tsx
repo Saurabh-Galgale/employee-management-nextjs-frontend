@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -15,6 +15,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import ProfileFormModal from "./ProfileFormModal";
 
 const pages = [
   { route: "users", translation: "Add New User" },
@@ -24,12 +25,10 @@ const pages = [
 const settings = ["Profile"];
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userAvatar, setUserAvatar] = useState("/userAvatar01.png");
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -46,150 +45,162 @@ function Header() {
     setAnchorElUser(null);
   };
 
+  const handleOpenProfileModal = () => {
+    setIsModalOpen(true);
+    handleCloseUserMenu();
+  };
+
+  const handleCloseProfileModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: "secondary.main" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-            <Link href="/">
-              <Image
-                src="/logo.svg"
-                alt="Logo"
-                width={40}
-                height={40}
-                style={{ marginRight: 8 }}
-              />
-            </Link>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+    <>
+      <AppBar position="static" sx={{ backgroundColor: "secondary.main" }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+              <Link href="/">
+                <Image
+                  src="/logo.svg"
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                  style={{ marginRight: 8 }}
+                />
+              </Link>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{ display: { xs: "block", md: "none" } }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page.route} onClick={handleCloseNavMenu}>
+                    <Link href={`/${page.route}`} passHref>
+                      <Typography sx={{ textAlign: "center" }}>
+                        {page.translation}
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <Box
+              sx={{
+                display: {
+                  xs: "flex",
+                  md: "none",
+                },
+                mr: 3,
+              }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+              <Link href="/">
+                <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+              </Link>
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+            >
+              EMS
+            </Typography>
+            <Box
+              sx={{
+                flexGrow: 1,
+                ml: 3,
+                display: { xs: "none", md: "flex" },
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.route} onClick={handleCloseNavMenu}>
-                  <Link href={`/${page.route}`} passHref>
-                    <Typography sx={{ textAlign: "center" }}>
-                      {page.translation}
-                    </Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box
-            sx={{
-              display: {
-                xs: "flex",
-                md: "none",
-              },
-              mr: 3,
-            }}
-          >
-            <Link href="/">
-              <Image src="/logo.svg" alt="Logo" width={40} height={40} />
-            </Link>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            EMS
-          </Typography>
-          <Box
-            sx={{
-              flexGrow: 1,
-              ml: 3,
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            {pages.map((page) => (
-              <Link key={page.route} href={`/${page.route}`} passHref>
-                <Typography
-                  sx={{
-                    textAlign: "center",
-                    justifyContent: "center",
-                    display: "block",
-                    mr: 3,
-                  }}
-                >
-                  {page.translation}
-                </Typography>
-              </Link>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="/userAvatar01.png"
-                  sx={{ width: 40, height: 40 }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
+                <Link key={page.route} href={`/${page.route}`} passHref>
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                      justifyContent: "center",
+                      display: "block",
+                      mr: 3,
+                    }}
+                  >
+                    {page.translation}
                   </Typography>
-                </MenuItem>
+                </Link>
               ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar src={userAvatar} sx={{ width: 40, height: 40 }} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleOpenProfileModal}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {setting}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <ProfileFormModal
+        open={isModalOpen}
+        onClose={handleCloseProfileModal}
+        setUserAvatar={setUserAvatar}
+      />
+    </>
   );
 }
 export default Header;
