@@ -6,29 +6,34 @@ export default function EmployeeFormPage() {
     <Box
       sx={{
         display: "flex",
-        width: "full",
         justifyContent: "center",
-        alignItems: "center",
-        height: "90vh",
+        minHeight: "90vh",
+        maxHeight: "fit content",
+        width: "full",
+        marginTop: 2,
       }}
     >
       <Box
         sx={{
-          width: "85%",
-          maxWidth: "85%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "90%",
           padding: "20px",
           borderRadius: "12px",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
           backgroundColor: "secondary.main",
         }}
       >
-        <Typography
-          variant="h4"
-          sx={{ textAlign: "center", marginBottom: "20px" }}
-        >
-          Add new user in the System
-        </Typography>
-        <MultiStepForm />
+        <Box sx={{ width: "100%" }}>
+          <Typography
+            variant="h5"
+            sx={{ textAlign: "center", marginBottom: "20px" }}
+          >
+            Add new user in the System
+          </Typography>
+          <MultiStepForm />
+        </Box>
       </Box>
     </Box>
   );

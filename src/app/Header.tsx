@@ -17,8 +17,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 const pages = [
-  { route: "Users", translation: "Add New User" },
-  { route: "About", translation: "About" },
+  { route: "users", translation: "Add New User" },
+  { route: "about-project", translation: "About Project" },
+  { route: "about", translation: "About Me" },
 ];
 const settings = ["Profile"];
 
@@ -89,7 +90,7 @@ function Header() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.route} onClick={handleCloseNavMenu}>
-                  <Link href={`/${page.route.toLowerCase()}`} passHref>
+                  <Link href={`/${page.route}`} passHref>
                     <Typography sx={{ textAlign: "center" }}>
                       {page.translation}
                     </Typography>
@@ -137,11 +138,7 @@ function Header() {
             }}
           >
             {pages.map((page) => (
-              <Link
-                key={page.route}
-                href={`/${page.route.toLowerCase()}`}
-                passHref
-              >
+              <Link key={page.route} href={`/${page.route}`} passHref>
                 <Typography
                   sx={{
                     textAlign: "center",
