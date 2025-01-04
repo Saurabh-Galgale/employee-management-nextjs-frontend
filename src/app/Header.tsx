@@ -6,6 +6,7 @@ import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -16,6 +17,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ProfileFormModal from "./ProfileFormModal";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import BookmarksOutlinedIcon from "@mui/icons-material/BookmarksOutlined";
 
 const pages = [
   { route: "users", translation: "Add New User" },
@@ -28,6 +31,7 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [favoriteHeaderButton, setFavoriteHeaderButton] = useState(false);
   const [userAvatar, setUserAvatar] = useState("/userAvatar01.png");
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -162,6 +166,20 @@ function Header() {
               ))}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Favorite users">
+                <IconButton
+                  onClick={() => setFavoriteHeaderButton((fav) => !fav)}
+                  sx={{ p: 0, mr: 3 }}
+                >
+                  <Badge badgeContent={1} color="primary">
+                    {favoriteHeaderButton ? (
+                      <BookmarksIcon />
+                    ) : (
+                      <BookmarksOutlinedIcon />
+                    )}
+                  </Badge>
+                </IconButton>
+              </Tooltip>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar src={userAvatar} sx={{ width: 40, height: 40 }} />

@@ -19,6 +19,8 @@ import {
   TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { mockUsers } from "./mockUsers";
 
 type UserType = {
@@ -29,6 +31,7 @@ type UserType = {
   department: string;
   designation: string;
   salary: string;
+  favorite: boolean;
 };
 
 export default function Page() {
@@ -100,13 +103,15 @@ export default function Page() {
           margin: "0 auto",
         }}
       >
-        <Typography variant="h5">
+        <Typography variant="h5" color="secondary.dark">
           Welcome to the Employee Management System
         </Typography>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
+            flexWrap: "wrap",
             margin: {
               xs: "4px auto",
               sm: "0",
@@ -115,11 +120,18 @@ export default function Page() {
         >
           <TextField
             label="Search user by name"
-            variant="filled"
-            color="secondary"
+            variant="outlined"
+            color="secondary.dark"
             value={searchQuery}
+            size="small"
             onChange={(e) => setSearchQuery(e.target.value)}
-            sx={{ marginRight: 2 }}
+            sx={{
+              marginRight: 2,
+              width: {
+                xs: "15rem",
+                lg: "20rem",
+              },
+            }}
           />
           <Link href={"/users"} passHref>
             <Button size="medium" sx={{ marginRight: 2 }}>
@@ -151,6 +163,9 @@ export default function Page() {
                 <strong>Name</strong>
               </TableCell>
               <TableCell>
+                <strong>Favorite</strong>
+              </TableCell>
+              <TableCell>
                 <strong>Email</strong>
               </TableCell>
               <TableCell>
@@ -175,6 +190,17 @@ export default function Page() {
               currentUsers.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell>{user.name}</TableCell>
+                  <TableCell>
+                    {user.favorite ? (
+                      <IconButton>
+                        <BookmarkOutlinedIcon />
+                      </IconButton>
+                    ) : (
+                      <IconButton>
+                        <BookmarkBorderOutlinedIcon />
+                      </IconButton>
+                    )}
+                  </TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.phone}</TableCell>
                   <TableCell>{user.department}</TableCell>
@@ -186,9 +212,25 @@ export default function Page() {
                         Edit
                       </Button>
                     </Link>
-                    <IconButton onClick={() => handleDelete(index)}>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      color="secondary.dark"
+                      sx={{
+                        backgroundColor: "secondary.main",
+                        color: "secondary.dark",
+                      }}
+                      startIcon={<DeleteIcon />}
+                      onClick={() => handleDelete(index)}
+                    >
+                      Delete
+                    </Button>
+                    {/* <IconButton
+                      onClick={() => handleDelete(index)}
+                      color="primary.main"
+                    >
                       <DeleteIcon />
-                    </IconButton>
+                    </IconButton> */}
                   </TableCell>
                 </TableRow>
               ))
