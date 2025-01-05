@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -20,6 +20,9 @@ import ProfileFormModal from "./ProfileFormModal";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import BookmarksOutlinedIcon from "@mui/icons-material/BookmarksOutlined";
 
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+
 const pages = [
   { route: "users", translation: "Add New User" },
   { route: "about-project", translation: "About Project" },
@@ -31,8 +34,9 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [favoriteHeaderButton, setFavoriteHeaderButton] = useState(false);
   const [userAvatar, setUserAvatar] = useState("/userAvatar01.png");
+
+  const favoriteUsersStore = useSelector((state: RootState) => state.favorite);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -61,7 +65,7 @@ function Header() {
   return (
     <>
       <AppBar position="static" sx={{ backgroundColor: "secondary.main" }}>
-        <Container maxWidth="xl">
+        <Container maxWidth="full">
           <Toolbar disableGutters>
             <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
               <Link href="/">
@@ -167,12 +171,12 @@ function Header() {
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Favorite users">
-                <IconButton
-                  onClick={() => setFavoriteHeaderButton((fav) => !fav)}
-                  sx={{ p: 0, mr: 3 }}
-                >
-                  <Badge badgeContent={1} color="primary">
-                    {favoriteHeaderButton ? (
+                <IconButton sx={{ p: 0, mr: 3 }}>
+                  <Badge
+                    badgeContent={favoriteUsersStore.count}
+                    color="primary"
+                  >
+                    {favoriteUsersStore.count ? (
                       <BookmarksIcon />
                     ) : (
                       <BookmarksOutlinedIcon />

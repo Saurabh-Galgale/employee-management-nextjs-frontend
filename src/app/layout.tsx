@@ -4,6 +4,8 @@ import React from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
+import { Provider } from "react-redux";
+import { store } from "../store";
 import "./globals.css";
 import Header from "./Header";
 
@@ -30,10 +32,12 @@ export default function RootLayout({
         <title>Your App Title</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeProvider theme={theme}>
-          <Header />
-          <div>{children}</div>
-        </ThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <Header />
+            <div>{children}</div>
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

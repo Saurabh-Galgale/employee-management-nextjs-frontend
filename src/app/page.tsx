@@ -21,6 +21,9 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
+import { addFavorite, removeFavorite } from "../store/slices/favoriteUserSlice";
 import { mockUsers } from "./mockUsers";
 
 type UserType = {
@@ -31,7 +34,6 @@ type UserType = {
   department: string;
   designation: string;
   salary: string;
-  favorite: boolean;
 };
 
 export default function Page() {
@@ -40,10 +42,23 @@ export default function Page() {
   const [rowsPerPage, setRowsPerPage] = useState(8);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  const favoriteUsers = useSelector(
+    (state: RootState) => state.favorite.favoriteUsers
+  );
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
     setUsers(storedUsers);
   }, []);
+
+  const handleFavoriteToggle = (user: UserType) => {
+    if (favoriteUsers.some((favUser: UserType) => favUser.id === user.id)) {
+      dispatch(removeFavorite(user.id));
+    } else {
+      dispatch(addFavorite(user));
+    }
+  };
 
   const handleDelete = (index: number) => {
     if (
@@ -191,15 +206,15 @@ export default function Page() {
                 <TableRow key={index}>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>
-                    {user.favorite ? (
-                      <IconButton>
+                    <IconButton onClick={() => handleFavoriteToggle(user)}>
+                      {favoriteUsers.some(
+                        (favUser: UserType) => favUser.id === user.id
+                      ) ? (
                         <BookmarkOutlinedIcon />
-                      </IconButton>
-                    ) : (
-                      <IconButton>
+                      ) : (
                         <BookmarkBorderOutlinedIcon />
-                      </IconButton>
-                    )}
+                      )}
+                    </IconButton>
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.phone}</TableCell>
@@ -225,18 +240,12 @@ export default function Page() {
                     >
                       Delete
                     </Button>
-                    {/* <IconButton
-                      onClick={() => handleDelete(index)}
-                      color="primary.main"
-                    >
-                      <DeleteIcon />
-                    </IconButton> */}
                   </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} align="center">
+                <TableCell colSpan={8} align="center">
                   No users available.
                 </TableCell>
               </TableRow>
