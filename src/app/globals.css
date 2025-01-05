@@ -41,6 +41,16 @@ a {
   text-decoration: none;
 }
 
+.loading-screen {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ margin: 0 auto;
+ height: 100vh;
+ color: #3E5A69;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -26,7 +26,7 @@ import { RootState } from "../store";
 import { addFavorite, removeFavorite } from "../store/slices/favoriteUserSlice";
 import { mockUsers } from "./mockUsers";
 
-type UserType = {
+export type UserType = {
   id: string;
   name: string;
   email: string;
@@ -34,6 +34,7 @@ type UserType = {
   department: string;
   designation: string;
   salary: string;
+  favorite: boolean;
 };
 
 export default function Page() {
@@ -42,13 +43,21 @@ export default function Page() {
   const [rowsPerPage, setRowsPerPage] = useState(8);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  const storedUsers = useMemo(() => {
+    return JSON.parse(localStorage.getItem("users") || "[]");
+  }, []);
+
   const favoriteUsers = useSelector(
     (state: RootState) => state.favorite.favoriteUsers
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    storedUsers.forEach((user: UserType) => {
+      if (user.favorite) {
+        handleFavoriteToggle(user);
+      }
+    });
     setUsers(storedUsers);
   }, []);
 
@@ -78,7 +87,10 @@ export default function Page() {
         mapStoredUsers.set(user.id, user.name);
       });
     let newUsersList = mockUsers.filter((user) => {
-      if (!mapStoredUsers.get(user.id)) return user;
+      if (!mapStoredUsers.get(user.id)) {
+        if (user.favorite) handleFavoriteToggle(user);
+        return user;
+      }
     });
     let updatedUsersList = [...newUsersList, ...storedUsers];
     localStorage.setItem("users", JSON.stringify(updatedUsersList));
@@ -153,8 +165,27 @@ export default function Page() {
               Add User
             </Button>
           </Link>
-          <Button size="medium" onClick={addMockUsers}>
-            Add Dummy users
+          <Button
+            size="medium"
+            onClick={addMockUsers}
+            sx={{
+              fontSize: "1rem",
+              fontWeight: "bold",
+              background: "linear-gradient(45deg, #409EFF, #67C23A)",
+              backgroundSize: "200% 200%",
+              color: "white",
+              animation: "gradient-animation 3s ease infinite",
+              padding: "0.25rem 1rem",
+              borderRadius: "4px",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+              "&:hover": {
+                background: "linear-gradient(45deg, #67C23A, #409EFF)",
+                transform: "scale(1.05)",
+                boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.3)",
+              },
+            }}
+          >
+            Add Dummy Users
           </Button>
         </Box>
       </Box>
@@ -176,9 +207,6 @@ export default function Page() {
             <TableRow>
               <TableCell>
                 <strong>Name</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Favorite</strong>
               </TableCell>
               <TableCell>
                 <strong>Email</strong>
@@ -205,8 +233,22 @@ export default function Page() {
               currentUsers.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.phone}</TableCell>
+                  <TableCell>{user.department}</TableCell>
+                  <TableCell>{user.designation}</TableCell>
+                  <TableCell>{user.salary}</TableCell>
                   <TableCell>
-                    <IconButton onClick={() => handleFavoriteToggle(user)}>
+                    <Link href={`/users/${user.id}`}>
+                      <Button size="small" sx={{ marginRight: 1 }}>
+                        Edit
+                      </Button>
+                    </Link>
+
+                    <IconButton
+                      onClick={() => handleFavoriteToggle(user)}
+                      sx={{ color: "secondary.dark", marginRight: 1 }}
+                    >
                       {favoriteUsers.some(
                         (favUser: UserType) => favUser.id === user.id
                       ) ? (
@@ -215,18 +257,7 @@ export default function Page() {
                         <BookmarkBorderOutlinedIcon />
                       )}
                     </IconButton>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.phone}</TableCell>
-                  <TableCell>{user.department}</TableCell>
-                  <TableCell>{user.designation}</TableCell>
-                  <TableCell>{user.salary}</TableCell>
-                  <TableCell>
-                    <Link href={`/users/${user.id}`}>
-                      <Button size="small" sx={{ marginRight: "8px" }}>
-                        Edit
-                      </Button>
-                    </Link>
+
                     <Button
                       variant="outlined"
                       size="small"

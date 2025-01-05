@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Typography,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-} from "@mui/material";
+import { Typography, Box, Divider } from "@mui/material";
 
 const AboutPage = () => {
   return (

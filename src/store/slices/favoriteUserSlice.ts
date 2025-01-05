@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserType } from '@/app/page';
 
 interface FavoriteState {
   count: number;
-  favoriteUsers: string[]; 
+  favoriteUsers: UserType[]; 
 }
 
 const initialState: FavoriteState = {
@@ -15,8 +16,10 @@ const favoriteUserSlice = createSlice({
   initialState,
   reducers: {
     addFavorite: (state, action: PayloadAction<string>) => {
-      state.favoriteUsers.push(action.payload);
+      if(!state.favoriteUsers.some((user) => user.id === action.payload.id)) {
+        state.favoriteUsers.push(action.payload);
       state.count += 1;
+      }
     },
     removeFavorite: (state, action: PayloadAction<string>) => {
       state.favoriteUsers = state.favoriteUsers.filter(

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
@@ -24,6 +24,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -32,12 +38,22 @@ export default function RootLayout({
         <title>Your App Title</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <Header />
-            <div>{children}</div>
-          </ThemeProvider>
-        </Provider>
+        {isLoading ? (
+          <div id="loading-screen" className="loading-screen">
+            <img src="/logo.svg" alt="Loading" height="50%" />
+            <h1>Employee Management System</h1>
+            <h2>Loading...</h2>
+          </div>
+        ) : (
+          <div id="app-content">
+            <Provider store={store}>
+              <ThemeProvider theme={theme}>
+                <Header />
+                <div>{children}</div>
+              </ThemeProvider>
+            </Provider>
+          </div>
+        )}
       </body>
     </html>
   );
