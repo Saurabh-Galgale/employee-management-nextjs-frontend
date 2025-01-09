@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -39,6 +40,7 @@ const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
       salary: "",
     }
   );
+  const router = useRouter();
 
   const generateUniqueId = (existingIds: string[]): string => {
     let newId: string;
@@ -61,6 +63,7 @@ const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
     if (existingUserIndex !== -1) {
       users[existingUserIndex] = { ...formData };
       alert("User updated successfully!");
+      router.push("/");
     } else {
       const existingIds = users.map((user: FormDataType) => user.id);
       const uniqueId = generateUniqueId(existingIds);
