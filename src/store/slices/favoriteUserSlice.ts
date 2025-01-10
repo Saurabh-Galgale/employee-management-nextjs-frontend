@@ -15,7 +15,7 @@ const favoriteUserSlice = createSlice({
   name: 'favorite',
   initialState,
   reducers: {
-    addFavorite: (state, action: PayloadAction<string>) => {
+    addFavorite: (state, action: PayloadAction<{}>) => {
       if(!state.favoriteUsers.some((user) => user.id === action.payload.id)) {
         state.favoriteUsers.push(action.payload);
       state.count += 1;

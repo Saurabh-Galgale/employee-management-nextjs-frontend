@@ -55,18 +55,36 @@ export default function Page() {
   useEffect(() => {
     storedUsers.forEach((user: UserType) => {
       if (user.favorite) {
-        handleFavoriteToggle(user);
+        dispatch(addFavorite(user));
       }
     });
     setUsers(storedUsers);
   }, []);
 
+  const setFavUserInLocalStorage = (updatedUsers: UserType[]) => {
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+  };
+
   const handleFavoriteToggle = (user: UserType) => {
-    if (favoriteUsers.some((favUser: UserType) => favUser.id === user.id)) {
+    const isFavorite = favoriteUsers.some(
+      (favUser: UserType) => favUser.id === user.id
+    );
+
+    // Update Redux state
+    if (isFavorite) {
       dispatch(removeFavorite(user.id));
     } else {
       dispatch(addFavorite(user));
     }
+
+    // Update users state and local storage
+    const updatedUsers = users.map((localUser) =>
+      localUser.id === user.id
+        ? { ...localUser, favorite: !isFavorite }
+        : localUser
+    );
+    setUsers(updatedUsers);
+    setFavUserInLocalStorage(updatedUsers);
   };
 
   const handleDelete = (index: number) => {
@@ -249,9 +267,7 @@ export default function Page() {
                       onClick={() => handleFavoriteToggle(user)}
                       sx={{ color: "secondary.dark", marginRight: 1 }}
                     >
-                      {favoriteUsers.some(
-                        (favUser: UserType) => favUser.id === user.id
-                      ) ? (
+                      {user.favorite ? (
                         <BookmarkOutlinedIcon />
                       ) : (
                         <BookmarkBorderOutlinedIcon />

@@ -7,7 +7,7 @@ export const mockUsers = [
     "phone": "18762876282",
     "salary": "20000",
     "id": "1789263841",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "mechanical",
@@ -16,7 +16,8 @@ export const mockUsers = [
     "name": "Mary Johnson",
     "phone": "18762876283",
     "salary": "32000",
-    "id": "3684029157"
+    "id": "3684029157",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -26,7 +27,7 @@ export const mockUsers = [
     "phone": "18762876284",
     "salary": "35000",
     "id": "6843152974",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "civil",
@@ -36,7 +37,7 @@ export const mockUsers = [
     "phone": "18762876285",
     "salary": "28000",
     "id": "9372618402",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "mechanical",
@@ -45,7 +46,8 @@ export const mockUsers = [
     "name": "James Brown",
     "phone": "18762876286",
     "salary": "27000",
-    "id": "5728016493"
+    "id": "5728016493",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -54,7 +56,8 @@ export const mockUsers = [
     "name": "Patricia Jones",
     "phone": "18762876287",
     "salary": "30000",
-    "id": "4837596201"
+    "id": "4837596201",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -63,7 +66,8 @@ export const mockUsers = [
     "name": "Michael Davis",
     "phone": "18762876288",
     "salary": "21000",
-    "id": "5021938746"
+    "id": "5021938746",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -73,7 +77,7 @@ export const mockUsers = [
     "phone": "18762876289",
     "salary": "33000",
     "id": "9208743615",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "electrical",
@@ -83,7 +87,7 @@ export const mockUsers = [
     "phone": "18762876290",
     "salary": "25000",
     "id": "4832169570",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "civil",
@@ -92,7 +96,8 @@ export const mockUsers = [
     "name": "Elizabeth Taylor",
     "phone": "18762876291",
     "salary": "32000",
-    "id": "7382094156"
+    "id": "7382094156",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -101,7 +106,8 @@ export const mockUsers = [
     "name": "William Anderson",
     "phone": "18762876292",
     "salary": "23000",
-    "id": "4528397610"
+    "id": "4528397610",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -111,7 +117,7 @@ export const mockUsers = [
     "phone": "18762876293",
     "salary": "34000",
     "id": "1937524860",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "civil",
@@ -121,7 +127,7 @@ export const mockUsers = [
     "phone": "18762876294",
     "salary": "22000",
     "id": "4768153029",
-    "favorite": "true"
+    "favorite": true
   },
   {
     "department": "mechanical",
@@ -130,7 +136,8 @@ export const mockUsers = [
     "name": "Charles Clark",
     "phone": "18762876295",
     "salary": "33000",
-    "id": "5948231076"
+    "id": "5948231076",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -139,7 +146,8 @@ export const mockUsers = [
     "name": "Nancy Lewis",
     "phone": "18762876296",
     "salary": "21000",
-    "id": "6174392058"
+    "id": "6174392058",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -148,7 +156,8 @@ export const mockUsers = [
     "name": "Daniel Walker",
     "phone": "18762876297",
     "salary": "29000",
-    "id": "3508496271"
+    "id": "3508496271",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -157,7 +166,8 @@ export const mockUsers = [
     "name": "Sarah Young",
     "phone": "18762876298",
     "salary": "25000",
-    "id": "8273140596"
+    "id": "8273140596",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -166,7 +176,8 @@ export const mockUsers = [
     "name": "Kevin Hall",
     "phone": "18762876299",
     "salary": "31000",
-    "id": "4089615732"
+    "id": "4089615732",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -175,7 +186,8 @@ export const mockUsers = [
     "name": "Emily Allen",
     "phone": "18762876300",
     "salary": "20000",
-    "id": "2978431605"
+    "id": "2978431605",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -184,7 +196,8 @@ export const mockUsers = [
     "name": "David King",
     "phone": "18762876301",
     "salary": "32000",
-    "id": "1597038264"
+    "id": "1597038264",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -193,7 +206,8 @@ export const mockUsers = [
     "name": "Julia Wright",
     "phone": "18762876302",
     "salary": "35000",
-    "id": "7619340852"
+    "id": "7619340852",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -202,7 +216,8 @@ export const mockUsers = [
     "name": "George Hill",
     "phone": "18762876303",
     "salary": "33000",
-    "id": "9481320576"
+    "id": "9481320576",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -211,7 +226,8 @@ export const mockUsers = [
     "name": "Rita Green",
     "phone": "18762876304",
     "salary": "20000",
-    "id": "6852039471"
+    "id": "6852039471",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -220,7 +236,8 @@ export const mockUsers = [
     "name": "Henry Adams",
     "phone": "18762876305",
     "salary": "24000",
-    "id": "3708462951"
+    "id": "3708462951",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -229,7 +246,8 @@ export const mockUsers = [
     "name": "Jessica Perez",
     "phone": "18762876306",
     "salary": "21500",
-    "id": "1643089725"
+    "id": "1643089725",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -238,7 +256,8 @@ export const mockUsers = [
     "name": "Jacob Martin",
     "phone": "18762876307",
     "salary": "23000",
-    "id": "5097164832"
+    "id": "5097164832",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -247,7 +266,8 @@ export const mockUsers = [
     "name": "Mary Lee",
     "phone": "18762876308",
     "salary": "30000",
-    "id": "8302416973"
+    "id": "8302416973",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -256,7 +276,8 @@ export const mockUsers = [
     "name": "Anthony Rodriguez",
     "phone": "18762876309",
     "salary": "21000",
-    "id": "1439287650"
+    "id": "1439287650",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -265,7 +286,8 @@ export const mockUsers = [
     "name": "Christina Gonzalez",
     "phone": "18762876310",
     "salary": "34000",
-    "id": "2758469130"
+    "id": "2758469130",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -274,7 +296,8 @@ export const mockUsers = [
     "name": "Louis Martinez",
     "phone": "18762876311",
     "salary": "22500",
-    "id": "6975401823"
+    "id": "6975401823",
+    "favorite": false
   },
   {
     "department": "civil",
@@ -283,7 +306,8 @@ export const mockUsers = [
     "name": "Olivia Robinson",
     "phone": "18762876312",
     "salary": "31000",
-    "id": "4158097263"
+    "id": "4158097263",
+    "favorite": false
   },
   {
     "department": "mechanical",
@@ -292,7 +316,8 @@ export const mockUsers = [
     "name": "Brandon White",
     "phone": "18762876313",
     "salary": "24000",
-    "id": "9274816035"
+    "id": "9274816035",
+    "favorite": false
   },
   {
     "department": "electrical",
@@ -301,6 +326,7 @@ export const mockUsers = [
     "name": "Laura Baker",
     "phone": "18762876314",
     "salary": "33000",
-    "id": "6893270145"
+    "id": "6893270145",
+    "favorite": false
   }
 ];

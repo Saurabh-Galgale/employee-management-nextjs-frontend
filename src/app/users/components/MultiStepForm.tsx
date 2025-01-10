@@ -22,6 +22,7 @@ type FormDataType = {
   department: string;
   designation: string;
   salary: string;
+  favorite?: boolean;
 };
 
 const steps = ["Basic Details", "Job Details", "Review & Submit"];
@@ -67,7 +68,7 @@ const MultiStepForm = ({ prefillData }: { prefillData?: FormDataType }) => {
     } else {
       const existingIds = users.map((user: FormDataType) => user.id);
       const uniqueId = generateUniqueId(existingIds);
-      const userWithId = { ...formData, id: uniqueId };
+      const userWithId = { ...formData, id: uniqueId, favorite: false };
       users.unshift(userWithId);
       alert("User saved successfully!");
     }
