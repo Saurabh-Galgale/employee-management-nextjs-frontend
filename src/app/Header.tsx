@@ -170,7 +170,7 @@ function Header() {
               ))}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Favorite users">
+              <Tooltip title="This shows total number of Bookmarked users">
                 <IconButton sx={{ p: 0, mr: 3 }}>
                   <Badge
                     badgeContent={favoriteUsersStore.count}
