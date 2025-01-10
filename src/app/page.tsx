@@ -190,7 +190,7 @@ export default function Page() {
               },
             }}
           />
-          <Tooltip title="Show Bookmarked users filter">
+          <Tooltip title="Filter: Show Bookmarked users">
             <IconButton
               onClick={() => setShowBookmarkedUser((prev) => !prev)}
               sx={{ marginRight: 2, color: "secondary.dark" }}
