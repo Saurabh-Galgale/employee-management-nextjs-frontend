@@ -17,10 +17,13 @@ import {
   Divider,
   TablePagination,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import BookmarksOutlinedIcon from "@mui/icons-material/BookmarksOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
 import { addFavorite, removeFavorite } from "../store/slices/favoriteUserSlice";
@@ -42,6 +45,7 @@ export default function Page() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(8);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showBookmarkedUser, setShowBookmarkedUser] = useState(false);
 
   const storedUsers = useMemo(() => {
     return JSON.parse(localStorage.getItem("users") || "[]");
@@ -126,9 +130,17 @@ export default function Page() {
     setPage(0); // Reset to the first page when the rows per page change
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const searchInList = (list) => {
+    return list.filter((user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  const bookmarkedUsersList = users.filter((user) => user.favorite);
+
+  const filteredUsers = showBookmarkedUser
+    ? searchInList(bookmarkedUsersList)
+    : searchInList(users);
 
   const currentUsers = filteredUsers.slice(
     page * rowsPerPage,
@@ -178,6 +190,18 @@ export default function Page() {
               },
             }}
           />
+          <Tooltip title="Show Bookmarked users filter">
+            <IconButton
+              onClick={() => setShowBookmarkedUser((prev) => !prev)}
+              sx={{ marginRight: 2, color: "secondary.dark" }}
+            >
+              {showBookmarkedUser ? (
+                <BookmarksIcon />
+              ) : (
+                <BookmarksOutlinedIcon />
+              )}
+            </IconButton>
+          </Tooltip>
           <Link href={"/users"} passHref>
             <Button size="medium" sx={{ marginRight: 2 }}>
               Add User
@@ -302,7 +326,7 @@ export default function Page() {
         <TablePagination
           rowsPerPageOptions={[8, 15, 30]}
           component="div"
-          count={users.length}
+          count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
