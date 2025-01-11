@@ -18,6 +18,7 @@ import {
   TablePagination,
   TextField,
   Tooltip,
+  Checkbox,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
@@ -247,6 +248,9 @@ export default function Page() {
         <Table>
           <TableHead sx={{ backgroundColor: "#D0DCE1" }}>
             <TableRow>
+              <TableCell padding="checkbox">
+                <Checkbox color="secondary.dark" />
+              </TableCell>
               <TableCell>
                 <strong>Name</strong>
               </TableCell>
@@ -274,6 +278,9 @@ export default function Page() {
             {currentUsers.length > 0 ? (
               currentUsers.map((user, index) => (
                 <TableRow key={index}>
+                  <TableCell padding="checkbox">
+                    <Checkbox color="secondary.dark" />
+                  </TableCell>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.phone}</TableCell>
