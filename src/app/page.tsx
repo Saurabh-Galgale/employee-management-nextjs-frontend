@@ -276,6 +276,10 @@ export default function Page() {
               <TableCell padding="checkbox">
                 <Checkbox
                   color="secondary.dark"
+                  indeterminate={
+                    selectedUsers.length > 0 &&
+                    selectedUsers.length < currentUsers.length
+                  }
                   checked={isAllSelected}
                   onChange={handleSelectAll}
                 />
