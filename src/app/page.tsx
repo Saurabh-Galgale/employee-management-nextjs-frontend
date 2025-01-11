@@ -43,6 +43,7 @@ export type UserType = {
 
 export default function Page() {
   const [users, setUsers] = useState<UserType[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(8);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -148,6 +149,30 @@ export default function Page() {
     page * rowsPerPage + rowsPerPage
   );
 
+  const isAllSelected =
+    currentUsers.length > 0 &&
+    currentUsers.every((user) => selectedUsers.includes(user.id));
+
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      const newSelected = currentUsers.map((user) => user.id);
+      setSelectedUsers((prev) => [...new Set([...prev, ...newSelected])]);
+    } else {
+      const remainingSelected = selectedUsers.filter(
+        (id) => !currentUsers.some((user) => user.id === id)
+      );
+      setSelectedUsers(remainingSelected);
+    }
+  };
+
+  const handleRowSelect = (id: string) => {
+    setSelectedUsers((prev) =>
+      prev.includes(id)
+        ? prev.filter((selectedId) => selectedId !== id)
+        : [...prev, id]
+    );
+  };
+
   return (
     <Box sx={{ marginTop: 4, textAlign: "center" }}>
       <Box
@@ -249,7 +274,11 @@ export default function Page() {
           <TableHead sx={{ backgroundColor: "#D0DCE1" }}>
             <TableRow>
               <TableCell padding="checkbox">
-                <Checkbox color="secondary.dark" />
+                <Checkbox
+                  color="secondary.dark"
+                  checked={isAllSelected}
+                  onChange={handleSelectAll}
+                />
               </TableCell>
               <TableCell>
                 <strong>Name</strong>
@@ -279,7 +308,11 @@ export default function Page() {
               currentUsers.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell padding="checkbox">
-                    <Checkbox color="secondary.dark" />
+                    <Checkbox
+                      color="secondary.dark"
+                      checked={selectedUsers.includes(user.id)}
+                      onChange={() => handleRowSelect(user.id)}
+                    />
                   </TableCell>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
