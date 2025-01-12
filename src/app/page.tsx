@@ -93,6 +93,21 @@ export default function Page() {
     setFavUserInLocalStorage(updatedUsers);
   };
 
+  const handleBulkDelete = () => {
+    if (
+      confirm(
+        "Selected users will be deleted permanently, are you sure you want to delete selected users?"
+      ) == true
+    ) {
+      const updatedUsers = users.filter(
+        (user) => !selectedUsers.includes(user.id)
+      );
+      setSelectedUsers([]);
+      setUsers(updatedUsers);
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+    }
+  };
+
   const handleDelete = (index: number) => {
     if (
       confirm("Are you sure, you want to delete the user permanently?") == true
@@ -228,11 +243,13 @@ export default function Page() {
               )}
             </IconButton>
           </Tooltip>
-          <Link href={"/users"} passHref>
-            <Button size="medium" sx={{ marginRight: 2 }}>
-              Add User
-            </Button>
-          </Link>
+          <Button
+            size="medium"
+            sx={{ marginRight: 2 }}
+            onClick={handleBulkDelete}
+          >
+            Bulk Delete
+          </Button>
           <Button
             size="medium"
             onClick={addMockUsers}
