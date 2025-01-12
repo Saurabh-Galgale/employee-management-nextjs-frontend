@@ -243,13 +243,15 @@ export default function Page() {
               )}
             </IconButton>
           </Tooltip>
-          <Button
-            size="medium"
-            sx={{ marginRight: 2 }}
-            onClick={handleBulkDelete}
-          >
-            Bulk Delete
-          </Button>
+          {selectedUsers.length > 0 && (
+            <Button
+              size="medium"
+              sx={{ marginRight: 2 }}
+              onClick={handleBulkDelete}
+            >
+              Bulk Delete
+            </Button>
+          )}
           <Button
             size="medium"
             onClick={addMockUsers}
