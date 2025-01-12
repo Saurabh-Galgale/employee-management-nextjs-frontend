@@ -45,7 +45,7 @@ export default function Page() {
   const [users, setUsers] = useState<UserType[]>([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(8);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showBookmarkedUser, setShowBookmarkedUser] = useState(false);
 
@@ -283,7 +283,7 @@ export default function Page() {
           marginTop: "20px",
           width: "90%",
           maxWidth: "90%",
-          maxHeight: "75vh",
+          maxHeight: "80vh",
           margin: "0 auto",
           borderRadius: "12px",
           backgroundColor: "secondary.main",
