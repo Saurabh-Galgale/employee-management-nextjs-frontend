@@ -35,8 +35,9 @@ const AboutPage = () => {
           <Typography
             variant="h5"
             sx={{
-              marginBottom: 1,
+              marginBottom: 2,
               color: "text.primary",
+              textAlign: "center",
             }}
           >
             Hi, I'm SAURABH GALGALE.
@@ -44,7 +45,11 @@ const AboutPage = () => {
 
           <Typography
             variant="body1"
-            sx={{ marginBottom: "16px", color: "text.primary" }}
+            sx={{
+              marginBottom: "16px",
+              color: "text.primary",
+              textAlign: "center",
+            }}
           >
             I am a software engineer with over 3.5 years of experience in
             building robust, scalable, and intuitive web applications. My
@@ -53,30 +58,47 @@ const AboutPage = () => {
             client needs.
           </Typography>
 
+          <Divider sx={{ margin: "10px 0" }} />
+
           <Typography
             variant="h6"
-            sx={{ marginBottom: 1, color: "text.primary" }}
+            sx={{ marginBottom: 1, color: "text.primary", textAlign: "center" }}
           >
             Core Skills
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             Frontend Development: React.js, Vue.js, and modern UI libraries like
             Material-UI, Element Plus and Tailwind css.
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             State Management: Redux, RTK and Context API using composables for
             efficient app state handling.
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             Data Management: Expertise in integrating APIs using Axios,
             fetching, transforming (using transformer functions), and rendering
             complex datasets.
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             Performance Optimization: Minimizing loops, optimizing algorithms,
             and reducing time complexity in applications.
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             Backend Development: Node.js, Express.js, and REST/GraphQL API
             design.
           </Typography>
@@ -85,34 +107,46 @@ const AboutPage = () => {
 
           <Typography
             variant="h6"
-            sx={{ marginBottom: 1, color: "text.primary" }}
+            sx={{ marginBottom: 1, color: "text.primary", textAlign: "center" }}
           >
             Notable Achievements
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             Designed and implemented a multi-module production planning system
             with dynamic state management.
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.primary" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: "text.primary", textAlign: "center" }}
+          >
             Developed advanced filtering and search features with optimized
             performance for large datasets.
           </Typography>
 
           <Typography
             variant="body1"
-            sx={{ marginTop: "16px", marginBottom: "20px" }}
+            sx={{
+              marginTop: "16px",
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
           >
             My commitment to coding excellence is backed by my focus on
             continuous learning and adopting best practices in software
             development.
           </Typography>
 
+          <Divider sx={{ margin: "10px 0" }} />
+
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
               gap: "20px",
-              marginTop: "20px",
+              marginTop: "30px",
             }}
           >
             <Link
