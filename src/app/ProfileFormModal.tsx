@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import {
   Dialog,
   DialogActions,
@@ -15,7 +15,7 @@ import { Close as CloseIcon } from "@mui/icons-material";
 interface ProfileFormModalProps {
   open: boolean;
   onClose: () => void;
-  setUserAvatar: () => void;
+  setUserAvatar: Dispatch<SetStateAction<string>>;
 }
 
 const ProfileFormModal: React.FC<ProfileFormModalProps> = ({
