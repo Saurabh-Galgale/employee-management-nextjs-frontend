@@ -65,7 +65,7 @@ function Header() {
   return (
     <>
       <AppBar position="static" sx={{ backgroundColor: "secondary.main" }}>
-        <Container maxWidth="full">
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
               <Link href="/">
