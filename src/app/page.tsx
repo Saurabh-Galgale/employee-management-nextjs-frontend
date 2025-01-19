@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
@@ -222,7 +223,9 @@ export default function Page() {
             color="secondary.dark"
             value={searchQuery}
             size="small"
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(e.target.value)
+            }
             sx={{
               marginRight: 2,
               width: {

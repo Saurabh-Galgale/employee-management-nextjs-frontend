@@ -2,8 +2,12 @@ import React from "react";
 import { Typography, Box, Divider, Link } from "@mui/material";
 import { GitHub, LinkedIn, Language } from "@mui/icons-material";
 
-// Reusable Typography Section Component
-const Section = ({ title, children }) => (
+interface SectionProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const Section: React.FC<SectionProps> = ({ title, children }) => (
   <>
     <Typography
       variant="h5"
@@ -17,7 +21,7 @@ const Section = ({ title, children }) => (
 );
 
 // Reusable Skill/Achievement Component
-const ListItemTextContent = ({ content }) => (
+const ListItemTextContent: React.FC<{ content: string }> = ({ content }) => (
   <Typography
     variant="body1"
     sx={{ color: "text.primary", textAlign: "center" }}

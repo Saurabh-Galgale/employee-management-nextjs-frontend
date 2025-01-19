@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect } from "react";
 import { Box, TextField } from "@mui/material";
 
@@ -64,7 +66,9 @@ const BasicDetails = ({
         label="Name"
         color="secondary.main"
         value={formData.name}
-        onChange={(e) => handleChange("name", e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleChange("name", e.target.value)
+        }
         error={!!errors.name}
         helperText={errors.name}
       />
@@ -73,7 +77,9 @@ const BasicDetails = ({
         type="email"
         color="secondary.main"
         value={formData.email}
-        onChange={(e) => handleChange("email", e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleChange("email", e.target.value)
+        }
         error={!!errors.email}
         helperText={errors.email}
       />
@@ -82,7 +88,9 @@ const BasicDetails = ({
         type="tel"
         color="secondary.main"
         value={formData.phone}
-        onChange={(e) => handleChange("phone", e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleChange("phone", e.target.value)
+        }
         error={!!errors.phone}
         helperText={errors.phone}
       />

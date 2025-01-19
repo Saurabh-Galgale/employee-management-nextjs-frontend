@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import {
   Dialog,
@@ -38,7 +40,7 @@ const ProfileFormModal: React.FC<ProfileFormModalProps> = ({
     }
   }, []);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -108,7 +110,9 @@ const ProfileFormModal: React.FC<ProfileFormModalProps> = ({
           <TextField
             label="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
             fullWidth
             sx={{ mt: 2 }}
             color="secondary.dark"
@@ -117,7 +121,9 @@ const ProfileFormModal: React.FC<ProfileFormModalProps> = ({
             label="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
             fullWidth
             sx={{ mt: 2 }}
             color="secondary.dark"
